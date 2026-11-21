@@ -4,7 +4,7 @@ import {withMermaid} from 'vitepress-plugin-mermaid';
 import mathjax3 from 'markdown-it-mathjax3';
 import {noteSections} from './note-sections.mjs';
 
-const REPO_NAME = '/Blog/'
+const REPO_NAME = '/blog/'
 
 // 你的 MathJax 自定义元素列表
 const customElements = [
