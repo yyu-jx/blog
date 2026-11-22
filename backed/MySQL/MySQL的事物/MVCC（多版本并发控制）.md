@@ -5,8 +5,6 @@
 
 - 可重复读隔离级是由 MVCC（多版本并发控制）实现的，实现的方式是开始事务后（执行 begin 语句后），在执行第一个查询语句后，会创建一个 Read View，后续的查询语句利用这个 Read View，通过这个 Read View 就可以在 undo log 版本链找到事务开始时的数据，所以事务过程中每次查询的数据都是一样的，即使中途有其他事务插入了新纪录，是查询不出来这条数据的，所以就很好地避免了幻读问题。
 
-****
-
 ### Undo Log + Read View + 版本链，就是 InnoDB 实现 MVCC 的核心方式。
 
 你可以把它们的分工记成：
@@ -90,7 +88,7 @@ money = 2
 
 你可以把 Undo Log 理解为：数据库修改数据之前，先把旧版本的信息保存起来，以便后续回滚或者读取旧版本。
 
-![Undo Log 版本链示意图](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118203459-b3fc1cb306d6.png)
+![记录的版本链](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118203459-b3fc1cb306d6.png)
 
 注意：
 
@@ -117,7 +115,7 @@ money = 2
 ****
 ### Read View 的四个重要的字段
 
-![Read View 的四个字段](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201556-008d3a48f48c.png)
+![Read View 的组成](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201556-008d3a48f48c.png)
 
  - m_ids ：指的是在创建 Read View 时，当前数据库中「活跃事务」的事务 id 列表，注意是一个列表，“活跃事务”指的就是，启动了但还没提交的事务，并且不包括创建该 Read View 的事务自身。
  - min_trx_id ：指的是在创建 Read View 时，当前数据库中「活跃事务」中事务 id 最小的事务，也就是 m_ids 的最小值。
@@ -126,17 +124,14 @@ money = 2
 
 ### 聚簇索引记录中两个跟事务有关的隐藏列
 对于使用 InnoDB 存储引擎的数据库表，它的聚簇索引记录中都包含下面两个隐藏列：
-
-![聚簇索引中的事务 ID 和回滚指针](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201842-462e8a895f29.png)
-
+![记录的隐藏列与 undo 日志](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201842-462e8a895f29.png)
 -  trx_id，当一个事务对某条聚簇索引记录进行改动时，就会把该事务的事务 id 记录在 trx_id 隐藏列里；
 -  roll_pointer，每次对某条聚簇索引记录进行改动时，都会把旧版本的记录写入到 undo 日志中，然后这个隐藏列是个指针，指向每一个旧版本记录，于是就可以通过它找到修改前的记录。
 
 ****
 
 #### 在创建 Read View 后，我们可以将记录中的 trx_id 划分这三种情况：
-
-![Read View 的记录可见性判断](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201947-9c1961c575fe.png)
+![Read View 的事务可见性规则](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201947-9c1961c575fe.png)
 
 
 一个事务去访问记录的时候，除了「自己的更新记录总是可见(即 trx_id == creator_trx_id 时可见)」之外，还有以下几种情况: 

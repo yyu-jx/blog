@@ -1,5 +1,5 @@
 
-![COUNT 查询示例](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261117211956-06ddba5a560c.png)
+![COUNT 写法的性能比较](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261117211956-06ddba5a560c.png)
 
 
 
@@ -70,7 +70,6 @@ select count(name) from t_order;
 # 如何优化 count(*)？
 ### 第一种，近似值
 如果你的业务对于统计个数不需要很精确，比如搜索引擎在搜索关键词的时候，给出的搜索结果条数是一个大概值。
+![使用 EXPLAIN 估算行数](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261117215523-6c93907b84a8.png)
 
-![COUNT 近似统计示例](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261117215523-6c93907b84a8.png)
-
-![COUNT 近似统计补充图](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261117215638-fdcf1bdbc923.png)
+![额外保存计数值](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261117215638-fdcf1bdbc923.png)
