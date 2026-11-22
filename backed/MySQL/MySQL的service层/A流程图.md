@@ -1,1 +1,1 @@
-![MySQL 查询执行流程图](<../../images/Pasted image 20261110085850.png>)
+![MySQL 查询执行流程图](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/mysql-query-flow-0ba129f6bfa2.png)

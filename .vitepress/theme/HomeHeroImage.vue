@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import logo from '../../logo.png'
+import { imageUrl } from '../image-host.mjs'
+
+const logo = imageUrl('logo.png')
 </script>
 
 <template>

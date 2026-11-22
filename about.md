@@ -10,10 +10,10 @@ pageClass: about-page
 -->
 
 <script setup>
-import { withBase } from 'vitepress'
+import { imageUrl } from './.vitepress/image-host.mjs'
 
 // 技术栈清单：增删技术只需增删对应的一行，顺序就是页面上的显示顺序。
-// name 是显示名称；icon 是 public/tech-icons/ 中的 SVG 文件名（不含 .svg）。
+// name 是显示名称；icon 是图床中的 SVG 文件名（不含 .svg）。
 // 临时隐藏某项，可以在对应行的最前面加 //。
 const techGroups = [
   {
@@ -178,8 +178,7 @@ const techGroups = [
   <!-- 顶部个人信息 -->
   <div class="profile-section">
     <!-- 头像 -->
-    <!-- 记得把你的 logo 图片放到 public 文件夹下 -->
-    <img src="/logo.png" alt="Lizzy的头像" class="profile-avatar">
+    <img :src="imageUrl('logo.png')" alt="Lizzy的头像" class="profile-avatar">
 <!-- 个人介绍 -->
     <div class="profile-info">
       <h1>Gnsan</h1>
@@ -195,7 +194,7 @@ const techGroups = [
       <h3 class="skill-title">{{ group.title }}：</h3>
       <ul class="tech-icons" role="list">
         <li v-for="tech in group.items" :key="tech.name">
-          <img :src="withBase(`/tech-icons/${tech.icon}.svg`)" alt="" width="42" height="42">
+          <img :src="imageUrl(`${tech.icon}.svg`)" alt="" width="42" height="42">
           <span>{{ tech.name }}</span>
         </li>
       </ul>

@@ -90,7 +90,7 @@ money = 2
 
 你可以把 Undo Log 理解为：数据库修改数据之前，先把旧版本的信息保存起来，以便后续回滚或者读取旧版本。
 
-![Undo Log 版本链示意图](<../../images/Pasted image 20261118203459.png>)
+![Undo Log 版本链示意图](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118203459-b3fc1cb306d6.png)
 
 注意：
 
@@ -117,7 +117,7 @@ money = 2
 ****
 ### Read View 的四个重要的字段
 
-![Read View 的四个字段](<../../images/Pasted image 20261118201556.png>)
+![Read View 的四个字段](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201556-008d3a48f48c.png)
 
  - m_ids ：指的是在创建 Read View 时，当前数据库中「活跃事务」的事务 id 列表，注意是一个列表，“活跃事务”指的就是，启动了但还没提交的事务，并且不包括创建该 Read View 的事务自身。
  - min_trx_id ：指的是在创建 Read View 时，当前数据库中「活跃事务」中事务 id 最小的事务，也就是 m_ids 的最小值。
@@ -127,7 +127,7 @@ money = 2
 ### 聚簇索引记录中两个跟事务有关的隐藏列
 对于使用 InnoDB 存储引擎的数据库表，它的聚簇索引记录中都包含下面两个隐藏列：
 
-![聚簇索引中的事务 ID 和回滚指针](<../../images/Pasted image 20261118201842.png>)
+![聚簇索引中的事务 ID 和回滚指针](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201842-462e8a895f29.png)
 
 -  trx_id，当一个事务对某条聚簇索引记录进行改动时，就会把该事务的事务 id 记录在 trx_id 隐藏列里；
 -  roll_pointer，每次对某条聚簇索引记录进行改动时，都会把旧版本的记录写入到 undo 日志中，然后这个隐藏列是个指针，指向每一个旧版本记录，于是就可以通过它找到修改前的记录。
@@ -136,7 +136,7 @@ money = 2
 
 #### 在创建 Read View 后，我们可以将记录中的 trx_id 划分这三种情况：
 
-![Read View 的记录可见性判断](<../../images/Pasted image 20261118201947.png>)
+![Read View 的记录可见性判断](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/obsidian-20261118201947-9c1961c575fe.png)
 
 
 一个事务去访问记录的时候，除了「自己的更新记录总是可见(即 trx_id == creator_trx_id 时可见)」之外，还有以下几种情况: 

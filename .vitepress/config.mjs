@@ -3,6 +3,7 @@ import timeline from "vitepress-markdown-timeline";
 import {withMermaid} from 'vitepress-plugin-mermaid';
 import mathjax3 from 'markdown-it-mathjax3';
 import {noteSections} from './note-sections.mjs';
+import {imageUrl} from './image-host.mjs';
 
 const REPO_NAME = '/blog/'
 
@@ -17,7 +18,7 @@ const baseVitePressConfig = {
     title: "07的发呆",
     description: "111",
     head: [
-        ['link', {rel: 'icon', type: 'image/png', sizes: '64x64', href: `${REPO_NAME}favicon.png`}]
+        ['link', {rel: 'icon', type: 'image/png', sizes: '64x64', href: imageUrl('favicon.png')}]
     ],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
