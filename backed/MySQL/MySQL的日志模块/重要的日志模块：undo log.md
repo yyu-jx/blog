@@ -18,3 +18,12 @@
 -  通过 roll_pointer 指针可以将这些 undo log 串成一个链表，这个链表就被称为版本链；
 
 版本链如下图：
+
+![image.png](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/20261123142817784.png)
+
+****
+
+### undo log 两大作用：
+
+- **实现事务回滚**，保障事务的原子性。事务处理过程中，如果出现了错误或者用户执 行了 ROLLBACK 语句，MySQL 可以利用 undo log 中的历史数据将数据恢复到事务开始之前的状态。
+- **实现 MVCC**（多版本并发控制）关键因素之一。MVCC 是通过 ReadView + undo log 实现的。undo log 为每条记录保存多份历史数据，MySQL 在执行快照读（普通 select 语句）的时候，会根据事务的 Read View 里的信息，顺着 undo log 的版本链找到满足其可见性的记录。

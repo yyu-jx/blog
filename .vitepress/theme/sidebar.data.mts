@@ -19,7 +19,7 @@ export default defineLoader({
       useTitleFromFileHeading: true,
       manualSortFileNameByPriority: ['前言.md'],
       collapsed: true,
-      collapseDepth: directory === 'backed' ? 1 : 2,
+      collapseDepth: 2,
     }))) as NoteSidebar
   },
 })
