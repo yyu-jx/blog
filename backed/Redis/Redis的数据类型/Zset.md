@@ -21,3 +21,6 @@ Zset 类型（Sorted Set，有序集合） 可以根据元素的权重来排序�
 有序集合比较典型的使用场景就是排行榜。例如学生成绩的排名榜、游戏积分排行榜、视频播放排名、电商系统中商品的销量排名等。
 
 我们以博文点赞排名为例，小林发表了五篇博文，分别获得赞为 200、40、100、50、150。
+
+![image.png](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/20261124204612725.png)
+![image.png](https://gcore.jsdelivr.net/gh/yyu-jx/blog-images@main/images/20261124204630097.png)
